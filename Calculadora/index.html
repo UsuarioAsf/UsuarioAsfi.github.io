@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--====== Required meta tags ======-->
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!--====== Title ======-->
+  <title>Calculadora Financiera</title>
+
+  <!--====== Favicon Icon ======-->
+  <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/svg" />
+
+  <!--====== Bootstrap css ======-->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+
+  <!--====== Line Icons css ======-->
+  <link rel="stylesheet" href="assets/css/lineicons.css" />
+
+  <!--====== Tiny Slider css ======-->
+  <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+
+  <!--====== gLightBox css ======-->
+  <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="assets/css/controlador.css" />
+</head>
+
+<body>
+
+  <!-- Start header Area -->
+  <section id="hero-area" class="header-area header-eight" style="background: rgb(26, 87, 118);">
+    
+      <div class="row align-items-center">
+        <div class="col-lg-6 col-md-12 col-12">
+          <div class="header-content">
+            <h1 style="text-align: center;">CALCULADORA FINANCIERA DE PRESTAMOS.</h1>
+            <br>
+            <h4 style="color: white; text-align: justify;margin-left: 45px;margin-right: 45px">
+              La calculadora financiera tiene la finalidad de ayudar a comprender como se calculan las cuotas e
+              intereses que se pagan por préstamos.
+
+            </h4>
+            <div class="button" style="text-align: center;">
+              <a href="#pg1" class="btn colorBoton" style="background-color: rgb(45, 184, 171);">Iniciemos!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-12">
+          <div class="header-image">
+            <img src="assets/images/calculadora.png" alt="#" />
+          </div>
+        </div>
+      </div>
+  </section>
+  <!-- End header Area -->
+
+  <!--====== ABOUT FIVE PART START ======-->
+
+  <section id="pg1" class="about-area about-five" style="padding-top: 90px;">
+    <div class="container">
+      <div class="row align-items-center">
+
+
+        <div class="col-lg-7 col-12">
+          <div class="about-five-content">
+            <div class="about-five-tab">
+              <div class="col-xl-15">
+                <div class="contact-form-wrapper">
+                  <div class="row">
+                    <div class="col-xl-10 col-lg-8 mx-auto">
+                      <div class="section-title text-center">
+                        <h2>
+                          Introduce tus datos
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <form action="#" class="contact-form">
+                    <div class="row espaciadoFila">
+                      <div class="col-2 espaciado">
+                        <span>Monto:</span>
+                      </div>
+
+                      <div class="col-5 espaciado">
+                        <input type="number" name="monto" id="monto" placeholder="Monto" required
+                          style="margin: auto;" />
+                      </div>
+
+                      <div class="col-3 espaciado">
+
+                        <select name="moneda" id="m_moneda" class="form-select rounded-pill">
+                          <option value="Bs.">Bs.</option>
+                          <option value="$">$</option>
+                        </select>
+                      </div>
+                      <div id="sp1" class="col-2 espaciado">
+                        <span></span>
+                      </div>
+                    </div>
+
+                    <div class="row" style="padding: 10px;">
+                      <div class="col-2 espaciado">
+                        <span>Interes anual:</span>
+                      </div>
+                      <div class="col-8">
+                        <input type="number" name="tasa" id="tasa" placeholder="0" required style="margin: auto;" />
+                      </div>
+                      <div class="col-2">
+                        <span id="span1_pg1" style="color: #5D6D7E">%</span>
+                      </div>
+                    </div>
+
+                    <div class="row" style="padding: 10px;">
+                      <div class="col-2 espaciado">
+                        <span>Plazo:</span>
+                      </div>
+                      <div class="col-4">
+                        <input type="number" min="0" max="30" name="name" id="plazo_año" placeholder="Años" required
+                          style="margin: auto;" />
+                      </div>
+                      <div class="col-4">
+                        <input type="number" name="name" id="plazo_mes" min="0" max="12" placeholder="Meses" required
+                          style="margin: auto;" />
+                      </div>
+                      <div class="col-2">
+                        <span></span>
+                      </div>
+                    </div>
+
+                    <div class="row" style="text-align: center;">
+                      <div class="col-12">
+                        <a style="background-color: rgb(26 87 118); color:white"
+                          onclick="if(!verificarPanel1()) event.preventDefault();"
+                          class="btn rounded-pill colorBoton">Verificar / Actualizar</a>
+                      </div>
+                      <br>
+                      <div class="row" style="text-align: center;margin-top: 10px;">
+                        <div class="col-12">
+                          <a id="cont1" href="#pg2" onclick="envio1();" class="btn colorBoton rounded-pill"
+                            style="visibility: hidden;">Continuar</a>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-5 col-12">
+          <div class="about-image-five">
+            <img src="assets/images/calculadora4.png" alt="about" />
+          </div>
+        </div>
+
+      </div>
+      <!-- container -->
+  </section>
+
+  <!--====== ABOUT FIVE PART ENDS ======-->
+
+
+  <!------------------------   Inicio etapa prueba--------------------------->
+  <section id="pg2" class="about-area about-five" style="display: none;">
+    <div class="container">
+      <div class="row align-items-center">
+
+
+        <div class="col-lg-7 col-12">
+          <div class="about-five-content">
+            <div class="about-five-tab">
+              <div class="col-xl-15">
+                <div class="contact-form-wrapper">
+                  <div class="row">
+                    <div class="col-xl-10 col-lg-8 mx-auto">
+                      <div class="section-title text-center">
+                        <h2>
+                          Datos Complementarios
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <form action="#" class="contact-form">
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <span><b>Plan de cuotas:</b></span>
+                      </div>
+                    </div>
+
+                    <div class="row espaciadoFila">
+                      <div class="col-4">
+                        <input style="background-color: rgb(26 87 118);" class="form-check-input" type="radio"
+                          name="inlineRadioOptions" id="tipoP_1" value="option1" checked>
+                        <p class="qwerty">Mensual</p>
+                      </div>
+                      <div class="col-4">
+                        <input style="background-color: rgb(26 87 118);" class="form-check-input" type="radio"
+                          name="inlineRadioOptions" id="tipoP_2" value="option2">
+                        <p class="qwerty">Trimestral</p>
+                      </div>
+                      <div class="col-4">
+                        <input style="background-color: rgb(26 87 118);" class="form-check-input" type="radio"
+                          name="inlineRadioOptions" id="tipoP_3" value="option3">
+                        <p class="qwerty">Semestral</p>
+                      </div>
+                    </div>
+
+
+
+
+
+
+                    <br>
+                    <div class="row espaciadoFila">
+                      <div class="col-4 espaciado">
+                        <span>Periodo de gracia:</span>
+                      </div>
+                      <div class="col-5 espaciado">
+                        <input type="number" style="margin: auto;" name="tasa" id="txtPeriodoGracia" placeholder="0"
+                          required />
+                      </div>
+                      <div class="col-3 espaciado">
+                        <span>(En meses)</span>
+                      </div>
+                    </div>
+
+                    <div class="row espaciadoFila">
+                      <div class="col-4 espaciado">
+                        <span>Seguro de Desgravamen(%):</span>
+                      </div>
+                      <div class="col-5 espaciado">
+                        <input type="number" style="margin: auto;" name="tasa" id="txtSeguroDes" placeholder="0"
+                          required />
+                      </div>
+                      <div class="col-3 espaciado">
+                        <span>(%)</span>
+                      </div>
+                    </div>
+
+
+
+
+                    <div class="row espaciadoFila">
+                      <div class="col-4 espaciado">
+                        <span>Pagos Adicionales por Cuota:</span>
+                      </div>
+                      <div class="col-5 espaciado">
+                        <input type="number" style="margin: auto;" name="tasa" id="txtPagoAdicional" placeholder="0"
+                          required />
+                      </div>
+                      <div class="col-3 espaciado">
+                        <span></span>
+                      </div>
+
+                    </div>
+
+                    <br>
+
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="button text-center rounded-buttons">
+                          <a id="cont2" href="#pg3" onclick="envio2()" class="btn rounded-pill colorBoton">Continuar /
+                            Actualizar</a>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-5 col-12">
+          <div class="about-image-five">
+            <img src="assets/images/about/about-img1.jpg" alt="about" />
+          </div>
+        </div>
+
+      </div>
+      <!-- container -->
+  </section>
+  <!------------------------   fin etapa prueba--------------------------->
+
+
+  <section id="pg3" style="display: none;" class="about-area about-five">
+    <div class="container">
+      <div class="row align-items-center">
+
+
+        <div class="col-lg-7 col-22">
+          <div class="about-five-content">
+            <div class="about-five-tab">
+              <div class="col-xl-15">
+                <div class="contact-form-wrapper">
+                  <div class="row">
+                    <div class="col-xl-10 col-lg-8 mx-auto">
+                      <div class="section-title text-center">
+                        <h2>
+                          Verificacion de Datos
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+                  <div class="row">
+
+                    <table class="table table-hover">
+
+                      <tbody>
+                        <tr>
+                          <th scope="row" colspan="2">Usted va a calcular un prestamo por:</th>
+                          <td id="dato1">: </td>
+                        </tr>
+                        <tr>
+                          <th scope="row" colspan="2">La tasa de interes es de:</th>
+                          <td id="dato3"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" colspan="2">El Plazo fijado para el prestamo es</th>
+                          <td id="dato4">: </td>
+                        </tr>
+                        <tr>
+                          <td colspan="3" id="dato5" style="text-align: right;">(Equivalente a Años)</td>
+                        </tr>
+                        <tr>
+                          <th scope="row" colspan="2">Los pagos se realizaran en forma</th>
+                          <td id="dato6"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" colspan="2">Periodos de gracia</th>
+                          <td id="dato7">: </td>
+                        </tr>
+                        <tr>
+                          <th scope="row" colspan="2">Se concideran pagos adicionales por cuota de</th>
+                          <td id="dato9"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" colspan="2">Se esta conciderando seguro de desgravamen</th>
+                          <td id="dato8"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="text-center">
+                        <a id="cont3" href="#pg4" onclick="generarTabla('x');" class="btn rounded-pill colorBoton">
+                          Resultados</a>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div id="pg4" class="col-lg-5 col-22">
+
+
+          <div class="about-five-content">
+            <div class="about-five-tab">
+              <div class="col-xl-15">
+                <div id="cuadroResult" class="contact-form-wrapper" style="margin-left: -30px;display: none;">
+                  <div class="row">
+                    <div class="col-xl-10 col-lg-8 mx-auto">
+                      <div class="section-title text-center">
+                        <h2>
+                          Resultados
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <!-- nueva tabla-->
+                  <div class="row">
+                    <table class="table table-hover">
+                      <tbody>
+                        <tr>
+                          <th scope="row" colspan="2">Primera Cuota a Pagarse</th>
+                          <td id="datoR1"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" colspan="2">Ultima Cuota a Pagarse</th>
+                          <td id="datoR2"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" colspan="2">Total de pagos programados</th>
+                          <td id="datoR3"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" colspan="2">Total de pagos reales</th>
+                          <td id="datoR4"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" colspan="2">Los intereses acumulados suman</th>
+                          <td id="datoR5"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" colspan="2">El total de pagos simulados alcanza a:</th>
+                          <td id="datoR6"></td>
+                        </tr>
+                      </tbody>
+
+                    </table>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="text-center">
+                        <a id="cont4" href="#pg5" onclick="verResultados();" class="btn rounded-pill colorBoton"
+                          style="display: none;">
+                          Ver simulacro de pagos
+                        </a>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                </div>
+                <br>
+                <br>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+      <!-- container -->
+  </section>
+  <section id="pg5" class="services-area services-six" style="display: none;">
+    <div class="container">
+      <h2 style="text-align: center;">Cuotas Fijas</h2>
+      <table class="table table-hover" style="text-align: center;">
+        <thead>
+          <tr scope="row">
+            <th scope="col">Nro. Pago</th>
+            <th scope="col">Fecha de Pago</th>
+            <th scope="col">Pago programado</th>
+            <th scope="col">Pago Adicional</th>
+            <th scope="col">Seguros</th>
+            <th scope="col">Pago Total</th>
+            <th scope="col">Interes Generado</th>
+            <th scope="col">Interes acumulado</th>
+            <th scope="col">Amortizacion Capital</th>
+            <th scope="col">Saldo Capital</th>
+            <th scope="col" colspan="2">Pagos Adicionales</th>
+          </tr>
+        </thead>
+        <tbody id="filas">
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+aqui
+  <!-- ===== service-area start ===== -->
+  <section id="services" class="services-area services-eight" style="display: none;">
+    <!--======  Start Section Title Five ======-->
+
+    <div class="section-title-five">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="content">
+              <h6>Services</h6>
+              <h2 class="fw-bold">Otros Servicios:</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Hic, maxime? Commodi, repudiandae doloremque iure facere molestias
+                recusandae minus quae, expedita saepe asperiores eligendi esse?
+                Aliquid, dolore nam? Architecto, fugiat atque..
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- row -->
+      </div>
+      <!-- container -->
+    </div>
+    <!--======  End Section Title Five ======-->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="single-services">
+            <div class="service-icon">
+              <i class="lni lni-capsule"></i>
+            </div>
+            <div class="service-content">
+              <h4>Refreshing Design</h4>
+              <p>
+                Lorem ipsum dolor sit amet, adipscing elitr, sed diam nonumy
+                eirmod tempor ividunt labor dolore magna.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="single-services">
+            <div class="service-icon">
+              <i class="lni lni-bootstrap"></i>
+            </div>
+            <div class="service-content">
+              <h4>Solid Bootstrap 5</h4>
+              <p>
+                Lorem ipsum dolor sit amet, adipscing elitr, sed diam nonumy
+                eirmod tempor ividunt labor dolore magna.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="single-services">
+            <div class="service-icon">
+              <i class="lni lni-shortcode"></i>
+            </div>
+            <div class="service-content">
+              <h4>100+ Components</h4>
+              <p>
+                Lorem ipsum dolor sit amet, adipscing elitr, sed diam nonumy
+                eirmod tempor ividunt labor dolore magna.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="single-services">
+            <div class="service-icon">
+              <i class="lni lni-dashboard"></i>
+            </div>
+            <div class="service-content">
+              <h4>Speed Optimized</h4>
+              <p>
+                Lorem ipsum dolor sit amet, adipscing elitr, sed diam nonumy
+                eirmod tempor ividunt labor dolore magna.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="single-services">
+            <div class="service-icon">
+              <i class="lni lni-layers"></i>
+            </div>
+            <div class="service-content">
+              <h4>Fully Customizable</h4>
+              <p>
+                Lorem ipsum dolor sit amet, adipscing elitr, sed diam nonumy
+                eirmod tempor ividunt labor dolore magna.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="single-services">
+            <div class="service-icon">
+              <i class="lni lni-reload"></i>
+            </div>
+            <div class="service-content">
+              <h4>Regular Updates</h4>
+              <p>
+                Lorem ipsum dolor sit amet, adipscing elitr, sed diam nonumy
+                eirmod tempor ividunt labor dolore magna.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <section id="call-action" class="call-action ">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="inner-content">
+            <h3 style="color: white;"><br>
+              Los resultados obtenidos en la calculadora son de carácter estrictamente educativo y referencial. No deben
+              ser usados como documento oficial para otros fines.
+            </h3>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Cta Area -->
+  <style>
+    .colorBoton {
+      background-color: rgb(26 87 118);
+      color: white;
+    }
+  </style>
+
+  <!--====== js ======-->
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/glightbox.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/tiny-slider.js"></script>
+  <script src="assets/js/controlador.js"></script>
+
+
+</body>
+
+</html>
