@@ -250,6 +250,11 @@ function generarTabla(linkX) {
    //seguro desgravamen
    let seguroCuotaDesgravamen = 0;
    let bandera = false;
+   
+   // periodo de gracia
+   let y = document.querySelector('#txtPeriodoGracia').value;   //periodo de gracia
+   v_periodoGracia = parseInt("0" + y);
+   
    while (deuda > 0) {
       seguroCuotaDesgravamen = deuda * (v_seguroDesgravamen / 100);
 
