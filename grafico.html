@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div>
+        <canvas id="graph" style="margin: 60px;"></canvas>
+    </div>
+
+    <script>
+        const data = [];
+        const data2 = [];
+        const data3 = [];
+        const data4 = [];
+        const data5 = [];
+        const data6 = [];
+        const data7 = [];
+        const data8 = [];
+        let prev = 0;
+        let prev2 = 0;
+        data.push({ x: 0, y: 18 });
+        data.push({ x: 1, y: 40 });
+        data.push({ x: 2, y: 46 });
+        data.push({ x: 3, y: 54 });
+        data.push({ x: 4, y: 31 });
+        data.push({ x: 5, y: 46 });
+        data.push({ x: 6, y: 63 });
+        data.push({ x: 7, y: 37 });
+        data.push({ x: 8, y: 62 });
+
+        data2.push({ x: 0, y: 12 });
+        data2.push({ x: 1, y: 24 });
+        data2.push({ x: 2, y: 33 });
+        data2.push({ x: 3, y: 37 });
+        data2.push({ x: 4, y: 27 });
+        data2.push({ x: 5, y: 41 });
+        data2.push({ x: 6, y: 55 });
+        data2.push({ x: 7, y: 49 });
+        data2.push({ x: 8, y: 9 });
+
+        data3.push({ x: 0, y: 21 });
+        data3.push({ x: 1, y: 19 });
+        data3.push({ x: 2, y: 23 });
+        data3.push({ x: 3, y: 22 });
+        data3.push({ x: 4, y: 49 });
+        data3.push({ x: 5, y: 71 });
+        data3.push({ x: 6, y: 74 });
+        data3.push({ x: 7, y: 38 });
+        data3.push({ x: 8, y: 46 });
+
+        data4.push({ x: 0, y: 20 });
+        data4.push({ x: 1, y: 32 });
+        data4.push({ x: 2, y: 24 });
+        data4.push({ x: 3, y: 13 });
+
+        data5.push({ x: 0, y: 27 });
+        data5.push({ x: 1, y: 30 });
+        data5.push({ x: 2, y: 17 });
+        data5.push({ x: 3, y: 20 });
+        data5.push({ x: 4, y: 33 });
+        data5.push({ x: 5, y: 63 });
+        data5.push({ x: 6, y: 62 });
+        data5.push({ x: 7, y: 22 });
+        data5.push({ x: 8, y: 26 });
+
+        data6.push({ x: 3, y: 20 });
+        data6.push({ x: 3, y: 20 });
+        data6.push({ x: 3, y: 20 });
+        data6.push({ x: 3, y: 20 });
+        data6.push({ x: 4, y: 28 });
+        data6.push({ x: 5, y: 67 });
+        data6.push({ x: 6, y: 51 });
+        data6.push({ x: 7, y: 46 });
+        data6.push({ x: 8, y: 53 });
+
+
+        data7.push({ x: 3, y: 44 });
+        data7.push({ x: 3, y: 44 });
+        data7.push({ x: 3, y: 44 });
+        data7.push({ x: 3, y: 44 });
+        data7.push({ x: 4, y: 67 });
+        data7.push({ x: 5, y: 72 });
+        data7.push({ x: 6, y: 71 });
+        data7.push({ x: 7, y: 37 });
+        data7.push({ x: 8, y: 47 });
+
+        data8.push({ x: 0, y: 60 });
+        data8.push({ x: 1, y: 60 });
+        data8.push({ x: 2, y: 60 });
+        data8.push({ x: 3, y: 60 });
+        data8.push({ x: 4, y: 60 });
+        data8.push({ x: 5, y: 60 });
+        data8.push({ x: 6, y: 60 });
+        data8.push({ x: 7, y: 60 });
+        data8.push({ x: 8, y: 60 });
+
+        const totalDuration = 8000;
+        const delayBetweenPoints = totalDuration / data.length;
+        const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
+        const animation = {
+            x: {
+                type: 'number',
+                easing: 'linear',
+                duration: delayBetweenPoints,
+                from: NaN, // the point is initially skipped
+                delay(ctx) {
+                    if (ctx.type !== 'data' || ctx.xStarted) {
+                        return 0;
+                    }
+                    ctx.xStarted = true;
+                    return ctx.index * delayBetweenPoints;
+                }
+            },
+            y: {
+                type: 'number',
+                easing: 'linear',
+                FontFace: 20,
+                duration: delayBetweenPoints,
+                from: previousY,
+                delay(ctx) {
+                    if (ctx.type !== 'data' || ctx.yStarted) {
+                        return 0;
+                    }
+                    ctx.yStarted = true;
+                    return ctx.index * delayBetweenPoints;
+                }
+            }
+        };
+        const config = {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: 'EAT',
+                    borderColor: 'rgb(14, 252, 252)',
+                    backgroundColor: 'rgb(14, 252, 252)',
+                    borderWidth: 4,
+                    radius:2,
+                    data: data,
+                },
+                {
+                    label: 'EBB',
+                    borderColor: 'rgb(243, 156, 18)',
+                    backgroundColor: 'rgb(243, 156, 18)',
+                    borderWidth: 4,
+                    radius:2,
+                    data: data2,
+                },
+                {
+                    label: 'ECHO',
+                    borderColor: 'rgb(131, 145, 146)',
+                    backgroundColor: 'rgb(131, 145, 146)',
+                    borderWidth: 4,
+                    radius:2,
+                    data: data3,
+                },
+                {
+                    label: 'EDGE',
+                    borderColor: 'rgb(241, 196, 15)',
+                    backgroundColor: 'rgb(241, 196, 15)',
+                    borderWidth: 4,
+                    radius:2,
+                    data: data4,
+                },
+                {
+                    label: 'EGG',
+                    borderColor: 'rgb(33, 97, 140)',
+                    backgroundColor: 'rgb(33, 97, 140)',
+                    borderWidth: 4,
+                    radius:2,
+                    data: data5,
+                },
+                {
+                    label: 'EXTASI',
+                    borderColor: 'rgb(35, 155, 86)',
+                    backgroundColor: 'rgb(35, 155, 86)',
+                    borderWidth: 4,
+                    radius:2,
+                    data: data6,
+                },
+                {
+                    label: 'EVIL',
+                    borderColor: 'rgb(136, 78, 160)',
+                    backgroundColor: 'rgb(136, 78, 160)',
+                    borderWidth: 4,
+                    radius:2,
+                    data: data7,
+                },
+                {
+                    label: 'OBJETIVO',
+                    borderColor: 'rgb(231, 76, 60)',
+                    backgroundColor: 'rgb(231, 76, 60)',
+                    borderWidth: 4,
+                    radius:2,
+                    data: data8,
+                },
+                ]
+            },
+            options: {
+                animation,
+                interaction: {
+                    intersect: false
+                },
+                scales: {
+                    x: {
+                        type: 'linear'
+                    }
+                },
+                tooltips: {
+                            titleFontSize: 15,
+                            bodyFontSize: 15
+                        }
+            }
+        };
+
+        const graph = document.querySelector("#graph");
+        new Chart(graph, config);
+    </script>
+</body>
+
+</html>
