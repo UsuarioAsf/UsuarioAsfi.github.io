@@ -1,0 +1,271 @@
+package ejercicio1_archivos_FUNCIONA;
+
+import java.io.*;
+
+class ArchTarea {
+
+	private String nomArch;
+
+	ArchTarea(String ruta) throws ClassNotFoundException, java.io.IOException {
+		nomArch = ruta;
+	}
+
+	public void registrarTarea() throws ClassNotFoundException, java.io.IOException {
+		ObjectOutputStream sal = null;
+		char resp;
+		try {
+			sal = new ObjectOutputStream(new FileOutputStream(nomArch));
+			System.out.println("Introduzca datos:");
+			do {
+				RegTarea r = new RegTarea();
+				r.leer(); // Lee datos dl teclado
+				sal.writeObject(r);
+				System.out.print("Desea registrar otro producto (s/n):");
+				resp = Leer.dato().charAt(0);
+			} while (resp == 's' || resp == 'S');
+			sal.close();
+		} catch (Exception e) {
+			System.err.println("No se puede abrir el archivo");
+		}
+	}
+
+	public void listarTareas() throws ClassNotFoundException, java.io.IOException {
+		ObjectInputStream ent = null;
+		try {
+			ent = new ObjectInputStream(new FileInputStream(nomArch));
+			RegTarea r;
+			System.out.println("\t\tTAREAS REGISTRADAS");
+			System.out.print("\n\t" + "NOMBRE" + "\t" + "NOTA");
+			System.out.println("\n\t" + "------" + "\t" + "-----------");
+			do {
+				r = (RegTarea) ent.readObject(); // Lee un objeto(registro) del archivo Producto.dat
+				r.mostrar();
+			} while (true);
+		} catch (EOFException eof) {
+			System.out.println("Fin del Listado");
+		} finally {
+			if (ent != null) {
+				ent.close();
+			}
+		}
+	}
+	public boolean modificar(String nombre) throws ClassNotFoundException, java.io.IOException {
+		ObjectInputStream archivo = null;
+		ObjectOutputStream archAux = null;
+		char resp;
+		boolean sw = false;
+		try {
+			// FileInputStream; filtro que permite leer objetos de un archivo
+			// FileOutputStream; filtro que permite escribir objetos en un archivo
+			// writeObject(); metodo de la clase ObjectOutputStream para grabar el objeto
+			// readObject(); metodo de la clase ObjectInputStream.para recuperar el objeto
+
+			archivo = new ObjectInputStream(new FileInputStream(nomArch));
+			archAux = new ObjectOutputStream(new FileOutputStream("Copia.dat"));
+			RegTarea r;
+			while (true) {
+				r = (RegTarea) archivo.readObject(); // Lee objeto deÃ­ archivo
+				if (r.getNombre().compareTo(nombre) != 0) {
+					archAux.writeObject(r);
+				} else {
+					System.out.print("Seguro(a) de modificar el Registro: " + nombre + "? (s/n):");
+					resp = Leer.dato().charAt(0);
+					if (resp == 'S' || resp == 's') {
+						sw = true;
+						r.leer();
+					}
+					archAux.writeObject(r); // Graba un objeto(registro) en el archivo Producto.dat
+				}
+			}
+		} catch (EOFException eof) { // EOFException; excepcion que controla el fin de archivo
+			System.out.println("Fin de ACTUALIZACION");
+		} finally {
+			if (archivo != null) {
+				archivo.close();
+				archAux.close();
+			}
+			File f1 = new File(nomArch);
+			File f2 = new File("Copia.dat");
+			f1.delete(); // Borra el archivo apuntado por f1
+			f2.renameTo(f1); // Renombra archivo
+		}
+		return sw;
+	}
+
+	public void Menu() throws ClassNotFoundException, java.io.IOException {
+		int op;
+		do {
+			System.out.println("\n\tMENU DE TAREAS");
+			System.out.println("\n\t [1] Registrar TAREAS");
+			System.out.println("\t [2] Eliminar");
+			System.out.println("\t [3] Modificar");
+			System.out.println("\t [4] Listar los TAREAS");
+			System.out.println("\t [5] Adicionar los TAREAS");
+			System.out.println("\t [7] Mostrar las tareas con nota de aprobacion");
+			System.out.println("\t [6j Salir");
+			System.out.print("\n\tIntroduzca una opcion? ");
+			op = Leer.datoInt();
+			switch (op) {
+
+			case 0:
+				break;
+			case 1:
+				System.out.print("Se eliminara el Archivo si EXISTE (s/n)");
+				char r = Leer.dato().charAt(0);
+				if (r == 'S' || r == 's') {
+					registrarTarea();
+				}
+				break;
+			case 2:
+				System.out.print("Nombre de registro a eliminar=> ");
+				Eliminar(Leer.dato());
+				break;
+			case 3:
+				System.out.print("Nombre de registro a modificar=> ");
+				boolean m = modificar(Leer.dato());
+				break;
+			case 4:
+				listarTareas();
+				break;
+			case 5:
+				adicionarTarea();
+				break;
+			case 6:
+				System.exit(0);
+			case 7:
+				mostrarAprob();
+				break;
+			}
+		} while (op != 6);
+	} // Fin del menu
+
+	public void Eliminar(String nombre) throws ClassNotFoundException, java.io.IOException {
+		ObjectInputStream archivoOriginal = null;
+		ObjectOutputStream archivoAuxiliar = null;
+		boolean sw = false;
+		try {
+			archivoOriginal = new ObjectInputStream(new FileInputStream(nomArch));
+			archivoAuxiliar = new ObjectOutputStream(new FileOutputStream("Copia.dat"));
+			RegTarea r;
+			while (true) {
+				r = (RegTarea) archivoOriginal.readObject(); // Lee un objeto(registro) del archivo Producto.dat
+				if (r.getNombre().compareTo(nombre)==0) {
+					sw = true;
+				} else {
+					archivoAuxiliar.writeObject(r);
+				}
+			}
+		} catch (Exception eof) { // EOFException; excepcion que controla el fin de archivo
+			System.out.println("Fin de eliminar");
+		} 
+		finally {
+			if (archivoOriginal != null) {
+				archivoOriginal.close();
+				archivoAuxiliar.close();
+			}
+			File f1 = new File(nomArch);
+			File f2 = new File("Copia.dat");
+			f1.delete(); // Borra el archivo apuntado por f1
+			f2.renameTo(f1); // Renombrar archivo
+			
+		}
+
+	}
+	public boolean adicionarTarea() throws ClassNotFoundException, java.io.IOException {
+		ObjectInputStream archivoOriginal = null;
+		ObjectOutputStream archAuxiliar = null;
+		char resp;
+		boolean sw = false;
+		try {
+			archivoOriginal = new ObjectInputStream(new FileInputStream(nomArch));
+			archAuxiliar = new ObjectOutputStream(new FileOutputStream("Copia.dat"));
+			RegTarea r = new RegTarea();
+			try {
+				while (true) {
+					r = (RegTarea) archivoOriginal.readObject(); // Lee objeto deÃ­ archivo
+					archAuxiliar.writeObject(r);
+				}
+			} catch (Exception e) {
+				System.out.println("Intro informacion de nueva tarea");
+				r = new RegTarea();
+				r.leer();
+				archAuxiliar.writeObject(r);
+			}
+
+			sw = true;
+		} catch (EOFException eof) { // EOFException; excepcion que controla el fin de archivo
+			System.out.println("Fin de Adicion");
+		} finally {
+			if (archivoOriginal != null) {
+				archivoOriginal.close();
+				archAuxiliar.close();
+			}
+			File f1 = new File(nomArch);
+			File f2 = new File("Copia.dat");
+			f1.delete(); // Borra el archivo apuntado por f1
+			f2.renameTo(f1); // Renombra archivo
+		}
+		return sw;
+	}
+
+	public void mostrarAprob() throws ClassNotFoundException, java.io.IOException {
+		ObjectInputStream ent = null;
+		try {
+			ent = new ObjectInputStream(new FileInputStream(nomArch));
+			RegTarea r;
+			System.out.println("\t\tTAREAS REGISTRADAS");
+			System.out.print("\n\t" + "NOMBRE" + "\t" + "NOTA");
+			System.out.println("\n\t" + "------" + "\t" + "-----------");
+			do {
+				r = (RegTarea) ent.readObject(); // Lee un objeto(registro) del archivo Producto.dat
+				if (r.getNota() >= 51) {
+					r.mostrar();
+				}
+			} while (true);
+		} catch (EOFException eof) {
+			System.out.println("Fin del Listado");
+		} finally {
+			if (ent != null) {
+				ent.close();
+			}
+		}
+	}
+} // fin de la clase ArchProducto
+
+
+
+
+otro----------------------------------------
+
+package ejercicio1_archivos_Pozo;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+public class PersistenciaFactura {
+	private String nombre;
+
+	public PersistenciaFactura(String nom) {
+		this.nombre = nom;
+	}
+
+	public void guardar(Factura f1) {
+		try {
+			ObjectOutputStream w1 = new ObjectOutputStream(new FileOutputStream(nombre));
+			w1.writeObject(f1);
+			w1.close();
+		} catch (IOException e) {
+			System.out.println("Error: " + e);
+		}
+	}
+
+	public Factura recuperar() throws IOException, ClassNotFoundException {
+		ObjectInputStream r1 = new ObjectInputStream(new FileInputStream(nombre));
+		Factura f1 = (Factura) r1.readObject();
+		r1.close();
+		return (f1);
+	}
+}

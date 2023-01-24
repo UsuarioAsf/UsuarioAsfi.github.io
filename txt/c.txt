@@ -1,0 +1,185 @@
+using System;
+using System.IO;
+class ArchivoJugador
+{
+   private string nombre;
+   public ArchivoJugador(string na)
+   {
+   	nombre=na;
+   }
+   public void crearNuevo()
+   {
+   	if (System.IO.File.Exists(nombre))
+   	    {
+   	    	Console.WriteLine("Realmente quiere crear el archivo. Ojo se borraran los registros? s/n");
+   	    	if (Console.ReadKey().KeyChar=='s')
+   	    		System.IO.File.Delete(nombre);
+   	    
+   	    }
+   	    else
+   	    	Console.WriteLine("el archivo no existe");
+   }
+   public void adicionar()
+   {
+    	Stream arch=File.Open(nombre,FileMode.Append);
+    	BinaryWriter escribe=new BinaryWriter(arch);
+    	Estudiante E=new Estudiante();
+    	try
+    	{
+    		do
+    		{
+    			Console.WriteLine();
+    			E.leer();
+                E.escribirAJ(escribe);
+    			Console.Write("\nDesea seguir añadiendo? s/n");
+    		}while(Console.ReadKey().KeyChar=='s');
+      }
+    	catch(Exception )
+    	{
+    		Console.WriteLine("Fallo en adicionar el objeto!!");
+    	}
+    	finally
+    	{
+    		arch.Close();
+    	}
+  	}
+   public void listar()
+   {
+   	Stream arch=File.Open(nombre,FileMode.OpenOrCreate);
+   	BinaryReader lector=new BinaryReader(arch);
+   	Estudiante E=new Estudiante();
+   	try
+   	{
+   		Console.WriteLine("\nDatos del Jugador");
+   		Console.WriteLine("====================");
+   		Console.WriteLine("\n<nombre-edad-estatura-peso-deporte>");
+   			
+   		while(true)
+   		{
+   			E.leerAJ(lector);
+   			Console.WriteLine("\n");
+   			E.mostrar();
+   		}
+   	}
+   	catch(Exception)
+   	{
+   		Console.WriteLine("Fin de archivo...");
+   	}
+   	finally{
+   		arch.Close();
+   	}
+   }
+   public bool eliminar( int edadx ) {
+		bool sw = false;
+		try {
+			// Abrimos el archivo o se crea un nuevo archivo si no existe
+			Stream archp = File.Open(nombre, FileMode.Open);
+			Stream archTemporal = File.Open(@"..\temp.dat", FileMode.OpenOrCreate);
+			BinaryReader lector = new BinaryReader(archp);
+			BinaryWriter escribeTemp = new BinaryWriter(archTemporal);
+			Estudiante est = new Estudiante();
+			
+			try {
+				while( true ) {
+					est.leerAJ(lector);
+					if( est.getEdad() != edadx ) {
+						est.escribirAJ(escribeTemp);
+					}
+					else {
+						sw = true;
+					}
+				}
+			}
+			catch( Exception ) {
+				// No hace nada.
+			}
+			finally {
+				archp.Close();
+				archTemporal.Close();
+				File.Replace(@"..\temp.dat", nombre, nombre + ".bak");
+			}
+		}
+		catch( Exception ) {
+			Console.WriteLine("El archivo no se puede acceder !!!");
+		}
+		return sw;
+	}
+   public void buscarM(string mx)
+   {
+   	Stream arch=File.Open(nombre,FileMode.OpenOrCreate);
+   	BinaryReader lector=new BinaryReader(arch);
+   	Estudiante E=new Estudiante();
+   	try
+   	{
+   		Console.WriteLine("\nDatos del Jugador");
+   		Console.WriteLine("====================");
+   		Console.WriteLine("\n<nombre-edad-estatura-peso-deporte>");
+   			
+   		while(true)
+   		{
+   			E.leerAJ(lector);
+   			if(E.getMascota().getNombre().Equals(mx)){
+   				Console.WriteLine("Dueño:  "+E.getNombre());
+   			}
+   			E.mostrar();
+   		}
+   	}
+   	catch(Exception)
+   	{
+   		Console.WriteLine("Fin de archivo...");
+   	}
+   	finally{
+   		arch.Close();
+   	}
+   }
+   
+}
+--------------------------------------------------------
+using System;
+using System.IO;
+public class Estudiante:Persona
+	{   private string universidad;
+	    private Mascota m; 	
+		public Estudiante()
+		{
+			m=new Mascota();
+			universidad="";
+		}
+		public void mostrar()
+		{
+			base.mostrar();
+			m.mostrar();
+			Console.Write("-Universidad:   "+universidad+">");
+		}
+		public void leer()
+		{
+			base.leer();
+			m.leer();
+			Console.Write("Intro Universidad");
+				universidad=Leer.Cadena();
+		}
+		
+		public void escribirAJ(BinaryWriter escritor)
+		{
+			escritor.Write(nombre);
+			escritor.Write(edad);
+			m.escribirAJ(escritor);
+			escritor.Write(universidad);
+		}
+		public void leerAJ(BinaryReader lector)
+		{
+			nombre=lector.ReadString();
+			edad=lector.ReadInt32();
+			m.leerAJ(lector);
+			universidad=lector.ReadString();
+		}
+		public Mascota getMascota()
+		{
+			return (m);
+		}
+		public string getUniversidad()
+		{
+			return universidad;
+		}
+	}
+
