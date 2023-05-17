@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: #222;
+      color: #fff;
+    }
+
+    /* Estilo para la galería de miniaturas */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .thumbnail {
+      width: 200px;
+      height: 150px;
+      margin: 10px;
+      cursor: pointer;
+      background-color: #333;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      transform: translateY(0);
+      transition: transform 0.3s;
+    }
+
+    .thumbnail:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Estilo para la imagen en pantalla completa */
+    #fullscreen-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <div class="gallery">
+    <div class="thumbnail" style="background-image: url('img/image1.png')" onclick="showFullscreenImage('img/image1.png')"></div>
+    <div class="thumbnail" style="background-image: url('img/image2.png')" onclick="showFullscreenImage('img/image2.png')"></div>
+    <div class="thumbnail" style="background-image: url('img/image4.png')" onclick="showFullscreenImage('img/image4.png')"></div>
+    <div class="thumbnail" style="background-image: url('img/image5.jpg')" onclick="showFullscreenImage('img/image5.jpg')"></div>
+    <div class="thumbnail" style="background-image: url('img/image6.png')" onclick="showFullscreenImage('img/image6.png')"></div>
+    <div class="thumbnail" style="background-image: url('img/image7.png')" onclick="showFullscreenImage('img/image7.png')"></div>
+    <div class="thumbnail" style="background-image: url('img/mmage8.png')" onclick="showFullscreenImage('img/mmage8.png')"></div>
+    <div class="thumbnail" style="background-image: url('img/image9.png')" onclick="showFullscreenImage('img/image9.png')"></div>
+    <div class="thumbnail" style="background-image: url('img/image10.jpeg')" onclick="showFullscreenImage('img/image10.jpeg')"></div>
+    <div class="thumbnail" style="background-image: url('img/image11.jpeg')" onclick="showFullscreenImage('img/image11.jpeg')"></div>
+  </div>
+
+  <div id="fullscreen-image" onclick="hideFullscreenImage()"></div>
+
+  <script>
+    function showFullscreenImage(url) {
+      var fullscreenImage = document.getElementById('fullscreen-image');
+      fullscreenImage.style.backgroundImage = 'url(' + url + ')';
+      fullscreenImage.style.display = 'block';
+    }
+
+    function hideFullscreenImage() {
+      var fullscreenImage = document.getElementById('fullscreen-image');
+      fullscreenImage.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
